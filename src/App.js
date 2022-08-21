@@ -8,39 +8,51 @@ import { useEffect } from "react";
 
 function App() {
   const formInputData = [
+    // {
+    //   name: "device",
+    //   type: "text",
+    //   placeholder: "device",
+    //   label: "прибор",
+    //   key: 1,
+    // },
+    // {
+    //   name: "number",
+    //   type: "number",
+    //   placeholder: "device number",
+    //   label: "номер прибора",
+    //   key: 2,
+    // },
+    // {
+    //   name: "dateStart",
+    //   type: "date",
+    //   placeholder: "",
+    //   label: "Дата",
+    //   key: 3,
+    // },
+    // {
+    //   name: "dateEnd",
+    //   type: "date",
+    //   placeholder: "",
+    //   label: "Дата",
+    //   key: 4,
+    // },
     {
-      name: "device",
-      type: "text",
-      placeholder: "device",
-      label: "прибор",
-      key: 1,
-    },
-    {
-      name: "number",
-      type: "number",
-      placeholder: "device number",
-      label: "номер прибора",
-      key: 2,
-    },
-    {
-      name: "dateStart",
-      type: "date",
-      placeholder: "",
-      label: "Дата",
-      key: 3,
-    },
-    {
-      name: "dateEnd",
-      type: "date",
-      placeholder: "",
-      label: "Дата",
-      key: 4,
+      type: "select",
+      label: "Тип прибора",
+      key: 5,
+      name: "selectType",
+      optionName: [
+        "Медицинское измерительное оборудование",
+        "Трассопоисковое оборудование",
+        "Приборы для анализа вентиляционных систем",
+      ],
     },
   ];
   const selectDevice = {
-    selectlabel: "Тип прибора",
+    type: "select",
+    label: "Тип прибора",
     key: 5,
-    name:"selectType",
+    name: "selectType",
     optionName: [
       "Медицинское измерительное оборудование",
       "Трассопоисковое оборудование",
@@ -68,12 +80,12 @@ function App() {
       <form onSubmit={submit}>
         {inputNewdata.map((input, index) => (
           <div key={index}>
-            <ProjectInput
+            {/* <ProjectInput
               dynamicInput={formInputData}
               getData={getFromInput}
               indexGlobal={index}
-            />
-            <ProjectSelector customSelector={selectDevice} />
+            /> */}
+            <ProjectSelector customSelector={formInputData} />
           </div>
         ))}
 

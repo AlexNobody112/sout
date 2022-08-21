@@ -2,7 +2,7 @@ import React from "react";
 
 const ProjectTextArea = ({ textAreaData }) => {
   return (
-    <div>
+    <div >
       <label>
         {textAreaData.label}
         <textarea name={textAreaData.label} id={textAreaData.id}></textarea>
