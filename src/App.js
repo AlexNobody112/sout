@@ -4,40 +4,43 @@ import ProjectSelector from "./Components/ProjectSelector/ProjectSelector";
 import ProjectTextArea from "./Components/ProjectTextArea/ProjectTextArea";
 import { useState } from "react";
 import ProjectButton from "./Components/ProjectButton/ProjectButton";
+import { useEffect } from "react";
 
 function App() {
   const formInputData = [
     {
-      name: "прибор",
-      label: "прибор",
-      placeholder: "Название прибора ...",
+      name: "device",
       type: "text",
-      value: "device",
+      placeholder: "device",
+      label: "прибор",
+      key: 1,
     },
     {
-      name: "номер",
-      label: "Номер прибора",
-      placeholder: "№ 1234",
+      name: "number",
       type: "number",
-      value: 1,
+      placeholder: "device number",
+      label: "номер прибора",
+      key: 2,
     },
     {
-      name: "Дата поверки",
-      label: "Дата поверки",
-      placeholder: "№ 1234",
+      name: "dateStart",
       type: "date",
-      value: "date",
+      placeholder: "",
+      label: "Дата",
+      key: 3,
+    },
+    {
+      name: "dateEnd",
+      type: "date",
+      placeholder: "",
+      label: "Дата",
+      key: 4,
     },
   ];
-
-  const textAreaData = {
-    label: ["Комментарий"],
-    id: [1],
-  };
-
   const selectDevice = {
-    selectlabel: ["Тип прибора"],
-    key: ["type of device"],
+    selectlabel: "Тип прибора",
+    key: 5,
+    name:"selectType",
     optionName: [
       "Медицинское измерительное оборудование",
       "Трассопоисковое оборудование",
@@ -45,49 +48,93 @@ function App() {
     ],
   };
 
-  const selectStatus = {
-    selectlabel: ["Статус"],
-    key: ["type of status"],
-    optionName: ["На складе", "В ремонте", "В работе"],
+  const [inputNewdata, setInputNewData] = useState([
+    { device: "", number: "" },
+  ]);
+
+  const getFromInput = (index, event) => {
+    let data = [...inputNewdata];
+    data[index][event.target.name] = event.target.value;
+    setInputNewData(data);
   };
 
-  const buttonData = {
-    label: ["сохранить"],
-  };
-
-  const [inputInfo, setInputInfo] = useState(formInputData);
-  const [optionReq, setOptionReq] = useState(selectDevice);
-  const [optionStat, setOptionStat] = useState(selectStatus);
-  const [textAreaInfo, setTextAreaInfo] = useState(textAreaData);
-  const [buttonInfo, setButtonInfo] = useState(buttonData);
-
-  const [test, setTest] = useState("");
-
-  const sendForm = (e) => {
+  const submit = (e) => {
     e.preventDefault();
-    console.log("first");
-
-    const localData = { test };
-
-    console.log(localData);
+    console.log(inputNewdata);
   };
 
   return (
     <div className="App">
-      <form onSubmit={sendForm}>
-        {inputInfo.map((dynamicInput) => (
-          <ProjectInput
-            onChange={(e) => setTest(e.target.value)}
-            dynamicInput={dynamicInput}
-          />
+      <form onSubmit={submit}>
+        {inputNewdata.map((input, index) => (
+          <div key={index}>
+            <ProjectInput
+              dynamicInput={formInputData}
+              getData={getFromInput}
+              indexGlobal={index}
+            />
+            <ProjectSelector customSelector={selectDevice} />
+          </div>
         ))}
-        <ProjectSelector customSelector={optionReq} />
-        <ProjectSelector customSelector={optionStat} />
-        <ProjectTextArea textAreaData={textAreaInfo} />
-        <ProjectButton onClick={sendForm} buttonData={buttonInfo} />
+
+        <button onClick={submit}>Добавить</button>
       </form>
     </div>
   );
 }
 
 export default App;
+
+// import { useState } from "react";
+// import "./App.css";
+
+// function App() {
+//   const [inputFields, setInputFields] = useState([{ name: "", age: "" }]);
+
+//   const handleFormChange = (index, event) => {
+//     event.preventDefault();
+//     let data = [...inputFields];
+//     data[index][event.target.name] = event.target.value;
+//     setInputFields(data);
+//     // console.log(data);
+//   };
+
+//   const addFields = () => {
+//     let newfield = { name: "", age: "" };
+
+//     setInputFields([...inputFields, newfield]);
+//   };
+
+//   const submit = (e) => {
+//     e.preventDefault();
+//     console.log(inputFields);
+//   };
+//   return (
+//     <div className="App">
+//       <form onSubmit={submit}>
+//         {inputFields.map((input, index) => {
+//           return (
+//             <div key={index}>
+//               <input
+//                 name="name"
+//                 placeholder="Name"
+//                 value={input.name}
+//                 onChange={(event) => handleFormChange(index, event)}
+//               />
+//               <input
+//                 name="age"
+//                 placeholder="Age"
+//                 value={input.age}
+//                 onChange={(event) => handleFormChange(index, event)}
+//               />
+//             </div>
+//           );
+//         })}
+//         <button onClick={addFields}>addFields</button>
+//         <button onClick={submit}>submit</button>
+//       </form>
+//     </div>
+//   );
+// }
+
+// export default App;

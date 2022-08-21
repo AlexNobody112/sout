@@ -6,7 +6,10 @@ const ProjectSelector = ({ customSelector }) => {
   return (
     <label>
       {customSelector.selectlabel}
-      <select value={customSelector.selectValue} name="select">
+      <select
+        value={customSelector.selectValue}
+        name={customSelector.selectType}
+      >
         {customSelector.optionName.map((optionKey) => (
           <ProjectOptions optionKey={optionKey} />
         ))}
